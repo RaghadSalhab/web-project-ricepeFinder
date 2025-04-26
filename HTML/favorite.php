@@ -1,0 +1,429 @@
+<?php
+
+echo "heeeeeeeeeeeeeeeeeeel";
+session_start(); // Start the session to access session variables
+
+$username = $_SESSION['username'];
+$email = $_SESSION['email'];
+$gender=$_SESSION['gender'];
+
+if ($gender == 'Male') {
+    $img1 = "../MainMenuBarPhoto/profile.png"; // Path to male image
+} else {
+    $img1 = "../MainMenuBarPhoto/businesswoman.png"; // Path to other image
+}
+
+// Establish database connection
+$db = new mysqli("localhost", "root", "", "recipefinderdb");
+
+// Check connection
+if ($db->connect_error) {
+    die("Connection failed: " . $db->connect_error);
+}
+
+// Fetch recipes from the database
+$favoriteQry = "SELECT requests.*
+                FROM requests
+                INNER JOIN favorite ON requests.ReqID = favorite.recipeID
+                INNER JOIN person ON favorite.email = person.Email
+                WHERE person.Email = '$email'";
+
+$result = $db->query($favoriteQry);
+
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Hover Effects</title>
+    <style>
+        .deleteButton{
+            font-size: 20px;
+            background-color: transparent;
+            cursor: pointer;
+            border: none;
+            color: #cccccc;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 20px;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            gap: 20px;
+        }
+        .all{
+            margin-top: 1%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+
+        .outdiv {
+            background-color: #c2d6d6;
+            width: 300px;
+            height: 400px;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+            margin: 10px;
+        }
+
+        .outdiv:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .front {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .front .img {
+            width: 100%;
+            max-height: 200px;
+            overflow: hidden;
+        }
+
+        .front .img img {
+            width: 100%;
+            height: auto;
+        }
+
+        .detail, .rating {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #f9f9f9;
+            margin-top: 5px;
+        }
+
+        .way {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .outdiv:hover .way {
+            display: block;
+        }
+
+        .horizontal-menu {
+            background-color: #248f8f;
+            overflow: hidden;
+        }
+
+        .horizontal-menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+        .horizontal-menu ul li {
+            display: flex;
+            align-items: center;
+        }
+
+        .horizontal-menu ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .horizontal-menu ul li a:hover {
+            background-color: #248f8f;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .menu {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .menu li {
+            flex: none;
+        }
+
+        .menu pre {
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chip {
+            padding: 0 25px;
+            height: 50px;
+            font-size: 16px;
+            line-height: 50px;
+            border-radius: 25px;
+            background-color: #f1f1f1;
+            color: #0c0c0c;
+            display: flex;
+            align-items:center;
+            margin-left: auto;
+        }
+
+        .chip img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .all {
+                margin-top: 1%;
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Centers items horizontally */
+                justify-content: center; /* Centers items vertically */
+            }
+            .outdiv{
+                margin-top: 10%;
+            }
+            .horizontal-menu ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .horizontal-menu ul li {
+                flex: 1 1 auto;
+            }
+
+            .chip {
+                order: 1;
+                width: 100%;
+                justify-content: center;
+                margin: 10px 0;
+            }
+
+            .chip img {
+                height: 40px;
+                width: 40px;
+            }
+
+            .menu pre {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .all {
+                margin-top: 1%;
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Centers items horizontally */
+                justify-content: center; /* Centers items vertically */
+            }
+            .outdiv{
+                margin-top: 10%;
+                margin-left: 1%;
+            }
+
+            .horizontal-menu ul li a {
+                padding: 20px;
+                font-size: 14px;
+            }
+
+            .menu pre {
+                font-size: 14px;
+            }
+
+            .chip {
+                padding: 0 15px;
+            }
+        }
+    </style>
+
+    <script>
+        function showIngredients(recipeID, button) {
+            var popupWidth = 300; // Set the initial width of the popup
+            var popupHeight = 300; // Set the initial height of the popup
+
+            // Calculate position for the popup window to appear above the button
+            var buttonRect = button.getBoundingClientRect(); // Get button's position relative to the viewport
+            var leftOffset = window.screenX + buttonRect.left - (popupWidth / 2) + (button.offsetWidth / 2);
+            var topOffset = window.screenY + buttonRect.top - popupHeight - 20;
+
+            // Open the popup window
+            var popup = window.open("show.php", "popup", "width=" + popupWidth + ",height=" + popupHeight + ",left=" + leftOffset + ",top=" + topOffset);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "show.php?recipeID=" + recipeID, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var content = xhr.responseText;
+                    popup.document.write("<html><head><title>Ingredients</title></head><body>");
+                    popup.document.write(content);
+                    popup.document.write("</body></html>");
+
+                    // Wait for the content to be fully loaded
+                    popup.addEventListener('load', function() {
+                        // Adjust popup size based on content size
+                        var contentHeight = popup.document.documentElement.scrollHeight;
+                        var contentWidth = popup.document.documentElement.scrollWidth;
+
+                        // Add some padding to the height and width
+                        popupWidth = Math.min(contentWidth + 40, screen.availWidth);
+                        popupHeight = Math.min(contentHeight , screen.availHeight);
+
+                        popup.resizeTo(popupWidth, popupHeight);
+                    });
+                }
+            };
+            xhr.send();
+        }
+    </script>
+<script>
+    function deleteFromFavorite(recipeID) {
+        if (confirm('Are you sure you want to remove this recipe from your favorites?')) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "delete_favorite.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    alert(xhr.responseText);
+                    // Optionally, you can remove the recipe card from the DOM or reload the page
+                    document.getElementById('recipe-' + recipeID).remove();
+                }
+            };
+            xhr.send("recipeID=" + recipeID);
+        }
+    }
+
+</script>
+
+</head>
+<body>
+
+<nav class="horizontal-menu">
+    <ul class="menu">
+        <li><a href="home.php"><img src="../MainMenuBarPhoto/home%20(2).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Home</pre></a></li>
+        <li><a href="User-P.php"><img src="../MainMenuBarPhoto/user.png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>User</pre></a></li>
+        <li><a href="mallet2.php"><img src="../MainMenuBarPhoto/recipe-book%20(2)%20(1).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Recipes</pre></a></li>
+        <li><a href="myRecipe.php."><img src="../MainMenuBarPhoto/meal%20(3)%20(1).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>My Recipe</pre></a></li>
+
+        <li><a href="AddRecipe.php"><img src="../MainMenuBarPhoto/add%20(3).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Add Recipe</pre></a></li>
+        <li><a href="favorite.php"><img src="../MainMenuBarPhoto/heart.png" style="width: 30px; height: 30px;"><pre>Favorite</pre></a></li>
+        <li class="chip">
+            <img src="<?php echo $img1; ?>" alt="Person" class="chipImg">
+            <?php echo htmlspecialchars($username); ?>
+        </li>
+        <li class="chip2">
+            <img onclick="        window.location.href = 'Sign-and-log-In.html';
+" style="margin: 0px;padding: 0px;border: 2px #cccccc none;width: 100%;color: black;height: 50px;cursor: pointer" src="../MainMenuBarPhoto/logout%20(2).png"></img>
+        </li>
+    </ul>
+</nav>
+<div class="all">
+    <?php
+    if ($result->num_rows > 0) {
+        $index=0;
+
+        while($row = $result->fetch_assoc()) {
+            $imageParts = explode('..', $row["Url"]);
+            $imagePath = '..' . end($imageParts);
+            $index++;
+            $_SESSION['recipeID']=$row["ReqID"];
+            echo '<div class="outdiv">
+            <div class="front">
+                <div class="img">
+                    <img src="'.htmlspecialchars($imagePath).'" alt="Recipe Image">
+                </div>
+                <div class="detail">
+                    <p>Recipe '.$index.':' . htmlspecialchars($row["name"]) .'</p>
+                </div>
+                
+                <div class="rating">
+                            
+                    <p>Level :' . htmlspecialchars($row["level"]) . '</p>
+
+                
+                </div>
+                     <div class="rating">
+                            
+                    <p>Time :' . htmlspecialchars($row["time"]) . '</p>
+
+                
+                </div>
+                  <div class="rating">
+                            
+                    <p>Status :' . htmlspecialchars($row["Status"]) . '</p>
+
+                
+                </div>
+            </div>
+            <div class="way">
+                <p>' . htmlspecialchars($row["Description"]) . '</p>
+                
+                
+                                <button class="deleteButton">delete</button>
+
+                <p>
+                <p>
+    <button onclick="showIngredients('. $row["ReqID"] . ', this)" style="margin-bottom:5%;font-size:16px;background-color: #248f8f; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    View Ingredients
+    </button>
+    </p>
+    <button onclick="deleteFromFavorite('. $row["ReqID"]. ')" 
+    style="  font-size: 20px;
+            cursor: pointer;
+            border: none;
+            color: #cccccc;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #990000;
+            margin-top: 5px;
+            cursor: pointer;            ">
+  Delete
+    </button>
+
+    
+    </p>
+    
+
+
+</div>
+        </div>';
+        }
+    }
+    else {
+        echo "No recipes found.";
+    }
+    // Fetch the ingredients for the current recipe
+
+
+
+
+    $db->close();
+    ?>
+</div>
+</body>
+</html>

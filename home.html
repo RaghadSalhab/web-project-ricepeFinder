@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Delfood</title>
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+
+  <!-- font awesome style -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- nice select -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <!-- slidck slider -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css.map" integrity="undefined" crossorigin="anonymous" />
+
+
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+
+
+  <style>
+
+    .horizontal-menu {
+      background-color: #248f8f;
+      overflow: hidden;
+    }
+
+    .horizontal-menu ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .horizontal-menu ul li {
+      float: left;
+    }
+
+    .horizontal-menu ul li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+
+    .horizontal-menu ul li a:hover {
+      background-color: #248f8f;
+      font-size:20px;
+      font-weight: bold;
+
+
+    }
+
+
+    *{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    .menu pre{
+      font-size: 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+
+
+</head>
+
+<body>
+<nav class="horizontal-menu">
+  <ul class="menu">
+    <li><a href="#home"><img src="photo/home%20(2).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Home</pre></a></li>
+    <li><a href="#User"><img src="photo/user.png" style="width:  30px; height:  30px;margin-left: 3px;"><pre>User</pre></a></li>
+
+    <li><a href="#Recipes"> <img src="photo/recipe-book%20(2).png" style="width:30px; height:30px;margin-left: 3px;"><pre>Recipes</pre></a></li>
+    <li><a href="#My_Recipe"><img src="photo/meal%20(3).png" style="width:30px; height: 30px;margin-left: 3px;"><pre>My Recipe</pre></a></li>
+    <li><a href="#Add_Recipe"> <img src="photo/add%20(3).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Add Recipe</pre></a></li>
+    <li><a href="#Favorite"> <img src="photo/heart.png" style="width: 30px; height: 30px;"><pre>Favorite</pre></a></li>
+
+  </ul>
+</nav>
+<script src="script.js">document.addEventListener("DOMContentLoaded", function() {
+  var menuItems = document.querySelectorAll('.horizontal-menu ul li a');
+
+  menuItems.forEach(function(item) {
+    item.addEventListener('click', function() {
+      menuItems.forEach(function(menuItem) {
+        menuItem.style.backgroundColor = ''; // Reset background color
+      });
+      item.style.backgroundColor = '#555'; // Set new background color
+    });
+  });
+});
+</script>
+  <div class="hero_area">
+
+
+    <!-- slider section -->
+    <section class="slider_section ">
+      <div class="container ">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <div class="detail-box">
+              <h1 style="color:#000;">
+                
+              </h1>
+              <p style="color:#000;">
+                when looking at its layout. The point of using Lorem Ipsum
+              </p>
+            </div>
+            <div class="find_container ">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <form>
+                      <div class="form-row ">
+
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slider_container">
+        <div class="item">
+          <div class="img-box">
+            <img src="images/slider-img1.png" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="images/slider-img2.png" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="images/slider-img3.png" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="images/slider-img4.png" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="images/slider-img1.png" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="images/slider-img2.png" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="images/slider-img3.png" alt="" />
+          </div>
+        </div>
+        <div class="item">
+          <div class="img-box">
+            <img src="images/slider-img4.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- end slider section -->
+  </div>
+
+
+
+
+    <!-- footer section -->
+    <footer class="footer_section" style="background-color: #248f8f; margin-top: 20px;">
+      <div class="container">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="https://html.design/">Free Html Templates</a><br>
+          Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
+        </p>
+      </div>
+    </footer>
+    <!-- footer section -->
+
+  </div>
+  <!-- jQery -->
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <!-- bootstrap js -->
+  <script src="js/bootstrap.js"></script>
+  <!-- slick  slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+  <!-- custom js -->
+  <script src="js/custom.js"></script>
+
+
+</body>
+
+</html>

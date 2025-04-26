@@ -1,0 +1,756 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
+
+
+
+
+
+
+    <title>CodePen - slider sign in / sign up form</title>
+
+    <link rel="canonical" href="https://codepen.io/technext/pen/KKWYPGM">
+
+
+
+
+    <style>
+
+
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+           /*background-image: url("MainMenuBarPhoto/tree.png");*/
+            background-repeat: no-repeat;
+            background-position: right bottom;
+            background-size:250px 250px ;
+
+
+
+        }
+
+
+
+        input,
+        button {
+            border: none;
+            outline: none;
+            background: none;
+            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        }
+
+        .tip {
+            font-size: 20px;
+            margin: 40px auto 50px;
+            text-align: center;
+        }
+
+        .cont {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            width: 900px;
+            height: 550px;
+            margin: 0 auto 100px;
+            background: #fff;
+            box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.3), 10px 10px 15px rgba(70, 70, 70, 0.15), inset -10px -10px 15px rgba(255, 255, 255, 0.3), inset 10px 10px 15px rgba(70, 70, 70, 0.15);
+        }
+        #correct_pass{
+            text-align: center;
+            color: black;
+
+        }
+
+        .form {
+            position: relative;
+            width: 640px;
+            height: 100%;
+            -webkit-transition: -webkit-transform 1.2s ease-in-out;
+            transition: -webkit-transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+            padding: 50px 30px 0;
+        }
+
+        .sub-cont {
+            overflow: hidden;
+            position: absolute;
+            left: 640px;
+            top: 0;
+            width: 900px;
+            height: 100%;
+            padding-left: 260px;
+            background: #fff;
+            -webkit-transition: -webkit-transform 1.2s ease-in-out;
+            transition: -webkit-transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+        }
+
+        .cont.s--makeToggle .sub-cont {
+            -webkit-transform: translate3d(-640px, 0, 0);
+            transform: translate3d(-640px, 0, 0);
+        }
+
+/*this button for checkButton*/
+        button {
+            display: block;
+            margin: 0 auto;
+            width: 260px;
+            height: 36px;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        /*order of thing of gray slider side page*/
+
+        .img {
+            overflow: hidden;
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100%;
+            padding-top: 360px;
+        }
+/*before click to update the gray slide position and information*/
+        .img:before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 900px;
+            height: 100%;
+            opacity: .8;
+            background-size: cover;
+            -webkit-transition: -webkit-transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+        }
+        /*after click to update the gray slide position and information*/
+
+        .img:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .cont.s--makeToggle .img:before {
+            -webkit-transform: translate3d(640px, 0, 0);
+            transform: translate3d(640px, 0, 0);
+        }
+/* text is gray slider postion (تبع if you  want)*/
+        .img__text {
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            top: 50px;
+            width: 100%;
+            padding: 0 20px;
+            text-align: center;
+            color: #fff;
+            -webkit-transition: -webkit-transform 1.2s ease-in-out;
+            transition: -webkit-transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+        }
+        /* text is gray slider text (تبع if you  want)*/
+
+        .img__text h2 {
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+
+        .img__text p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+
+        .cont.s--makeToggle .img__text {
+            -webkit-transform: translateX(520px);
+            transform: translateX(520px);
+        }
+
+        .img__text.m--apply {
+            -webkit-transform: translateX(-520px);
+            transform: translateX(-520px);
+        }
+        /*raghad*/
+        .m--cancel {
+            -webkit-transform: translateX(-520px);
+            transform: translateX(-520px);
+        }
+/* end*/
+        .cont.s--makeToggle .img__text.m--apply {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+        .cont.s--makeToggle .img__text.m--cancel {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+/*I think its not important
+        .img__btn {
+            overflow: hidden;
+            z-index: 2;
+            position: relative;
+            width: 100px;
+            height: 36px;
+            margin: 0 auto;
+            background: transparent;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 15px;
+            cursor: pointer;
+        }
+*/
+
+
+        .img__btn:after {
+            content: '';
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #fff;
+            border-radius: 30px;
+        }
+
+        .img__btn span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            -webkit-transition: -webkit-transform 1.2s;
+            transition: -webkit-transform 1.2s;
+            transition: transform 1.2s;
+            transition: transform 1.2s, -webkit-transform 1.2s;
+        }
+
+        .img__btn span.m--apply {
+            -webkit-transform: translateY(-72px);
+            transform: translateY(-72px);
+        }
+
+        .cont.s--makeToggle .img__btn span.m--apply {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+        .cont.s--makeToggle .img__btn_cancel span.m--cancel {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+
+
+        .cont.s--makeToggle .img__btn span.m--forUpdateClick {
+            -webkit-transform: translateY(72px);
+            transform: translateY(72px);
+        }
+
+        h2 {
+            width: 100%;
+            font-size: 26px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            width: 260px;
+            margin: 25px auto 0;
+            text-align: center;
+        }
+
+        label span {
+            font-size: 12px;
+            color: #cfcfcf;
+            text-transform: uppercase;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            margin-top: 5px;
+            padding-bottom: 5px;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .forgot-pass {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #cfcfcf;
+        }
+
+        .submit {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            background: #248f8f;
+            text-transform: uppercase;
+        }
+
+        .fb-btn {
+            border: 2px solid #d3dae9;
+            color: #8fa1c7;
+        }
+
+        .fb-btn span {
+            font-weight: bold;
+            color: #455a81;
+        }
+
+        .My_profile {
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+
+        .cont.s--makeToggle .My_profile {
+            -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
+            -webkit-transition-duration: 1.2s;
+            transition-duration: 1.2s;
+            -webkit-transform: translate3d(640px, 0, 0);
+            transform: translate3d(640px, 0, 0);
+        }
+
+        .updating_operation {
+            -webkit-transform: translate3d(-900px, 0, 0);
+            transform: translate3d(-900px, 0, 0);
+        }
+
+        .cont.s--makeToggle .updating_operation {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+        .menu pre{
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+        @media (max-width: 768px) {
+            .sub-cont{
+                width: 10%;
+            }
+            .cont{
+
+            }
+            .horizontal-menu ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .horizontal-menu ul li {
+                flex: 1 1 auto;
+            }
+
+            .chip {
+                order: 1;
+                width: 100%;
+                justify-content: center;
+                margin: 10px 0;
+            }
+
+            .chip img {
+                height: 40px;
+                width: 40px;
+            }
+
+            .menu pre {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sub-cont{
+                width: 10%;
+            }
+            .horizontal-menu ul li a {
+                padding: 20px;
+                font-size: 14px;
+            }
+
+            .menu pre {
+                font-size: 14px;
+            }
+
+            .chip {
+                padding: 0 15px;
+            }
+        }
+    </style>
+<style>
+    /*design for apply update buttons*/
+    .img__btn {
+        overflow: hidden;
+        z-index: 2;
+        position: relative;
+        width: 100px;
+        height: 36px;
+        margin: 0 auto;
+        background: transparent;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 15px;
+        cursor: pointer;
+        margin-bottom: 10px; /* Add space between buttons */
+    }
+
+    .img__btn_cancel {
+        overflow: hidden;
+        z-index: 2;
+        position: relative;
+        width: 100px;
+        height: 36px;
+        margin: 0 auto;
+        background: transparent;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 15px;
+        cursor: pointer;
+        display: none;
+    }
+
+    .img__btn_cancel:after {
+        content: '';
+        z-index: 2;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border: 2px solid #fff;
+        border-radius: 30px;
+
+    }
+
+    .img__btn_cancel span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        -webkit-transition: -webkit-transform 1.2s;
+        transition: -webkit-transform 1.2s;
+        transition: transform 1.2s;
+        transition: transform 1.2s, -webkit-transform 1.2s;
+    }
+
+    .cont.s--makeToggle .img__btn span.m--apply {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    .cont.s--makeToggle .img__btn_cancel span.m--cancel {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+
+
+
+    body{
+        background-image: url("../HomePageImages/body-bg.jpg");
+    }
+</style>
+    <script>
+        window.console = window.console || function(t) {};
+    </script>
+<!--menu design-->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .horizontal-menu {
+            background-color: #248f8f;
+            overflow: hidden;
+        }
+
+        .horizontal-menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+        .horizontal-menu ul li {
+            display: flex;
+            align-items: center;
+        }
+
+        .horizontal-menu ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .horizontal-menu ul li a:hover {
+            background-color: #248f8f;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .menu {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .menu li {
+            flex: none;
+        }
+
+        .menu pre {
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chip {
+            padding: 0 25px;
+            height: 50px;
+            font-size: 16px;
+            line-height: 50px;
+            border-radius: 25px;
+            background-color: #f1f1f1;
+            color: #0c0c0c;
+            display: flex;
+            align-items:center;
+            margin-left: auto;
+        }
+
+        .chip img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .sub-cont{
+                width: 10%;
+            }
+            .horizontal-menu ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .horizontal-menu ul li {
+                flex: 1 1 auto;
+            }
+
+            .chip {
+                order: 1;
+                width: 100%;
+                justify-content: center;
+                margin: 10px 0;
+            }
+
+            .chip img {
+                height: 40px;
+                width: 40px;
+            }
+
+            .menu pre {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sub-cont{
+                width: 10%;
+            }
+            .horizontal-menu ul li a {
+                padding: 20px;
+                font-size: 14px;
+            }
+
+            .menu pre {
+                font-size: 14px;
+            }
+
+            .chip {
+                padding: 0 15px;
+            }
+        }
+    </style>
+
+</head>
+<!--menu-->
+<body translate="no">
+<nav class="horizontal-menu">
+    <ul class="menu">
+        <li><a href="home.html"><img src="../MainMenuBarPhoto/home%20(2).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Home</pre></a></li>
+        <li><a href="User-P.html"><img src="../MainMenuBarPhoto/user.png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>User</pre></a></li>
+        <li><a href="Recipes.html"><img src="../MainMenuBarPhoto/recipe-book%20(2)%20(1).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Recipes</pre></a></li>
+        <li><a href="MyRecipe.html"><img src="../MainMenuBarPhoto/meal%20(3)%20(1).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>My Recipe</pre></a></li>
+        <li><a href="#Add_Recipe"><img src="../MainMenuBarPhoto/add%20(3).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Add Recipe</pre></a></li>
+        <li><a href="#Favorite"><img src="../MainMenuBarPhoto/heart.png" style="width: 30px; height: 30px;"><pre>Favorite</pre></a></li>
+        <li class="chip">
+            <img src="../MainMenuBarPhoto/profile.png" alt="Person" class="chipImg">
+            raghad salhab
+        </li>
+    </ul>
+</nav>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var menuItems = document.querySelectorAll('.horizontal-menu ul li a');
+
+        menuItems.forEach(function(item) {
+            item.addEventListener('click', function() {
+                menuItems.forEach(function(menuItem) {
+                    menuItem.style.backgroundColor = ''; // Reset background color
+                });
+            });
+        });
+    });
+</script>
+<!--End of menu-->
+
+
+<br>
+<br>
+
+<!-- apply page-->
+<div class="cont">
+    <div class="form My_profile" >
+       <h2>My Profile </h2>
+        <label>
+            <span>Username</span>
+            <input type="text"  readonly value= "<?php echo  $_SESSION['username']?>"/>
+        </label>
+        <label>
+            <span>Email</span>
+            <input type="email" readonly  value=" <?php echo$_SESSION['email']?>"/>
+        </label>
+        <label>
+            <span>Password</span>
+            <input type="password"  value="tonaRaghad" readonly/>
+        </label>
+
+        <label>
+            <span>Birthday</span>
+            <input type="email" value="13/3/2004" readonly/>
+        </label>
+
+    </div>
+    <!--sub-cont class is for the side(apply,cancel,update)-->
+    <div class="sub-cont">
+        <div class="img" id="sliderId">
+            <div class="img__text m--forUpdateClick">
+
+                <h3>If you want to change your information,make sure to click on update button.</h3>
+            </div>
+            <div class="img__text m--apply">
+
+                <h3>if you finish the updating operation ,make sure to click on apply button.
+                   </h3>
+            </div>
+            <div class="img__btn">
+                <span class="m--forUpdateClick">Update</span>
+                <span class="m--apply">Apply</span>
+            </div>
+            <div class="img__btn_cancel" id="cancelId">
+                <span class="m--cancel">Cancel</span>
+            </div>
+        </div>
+
+
+        <!-- update page-->
+
+        <div class="form updating_operation">
+            <h2>Updating Operation</h2>
+            <label>
+                <span>UserName</span>
+                <input type="text" value="raghad salhab" readonly/>
+            </label>
+
+            <label>
+                <span>Email</span>
+                <input type="email" value="tahertona@gmail.com" readonly />
+            </label>
+            <label>
+                <span>Old Password</span>
+                <input type="password" />
+            </label>
+
+            <button type="button" class="submit">Check</button>
+            <b><p id="correct_pass" >you have enterd a correct password.
+            </p></b>
+            <label style="            display: none;">
+                <span>New Password</span>
+                <input type="password" />
+            </label>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.querySelector('.img__btn').addEventListener('click', function() {
+
+       document.querySelector('.cont').classList.toggle('s--makeToggle');
+        document.getElementsByClassName('img__btn_cancel')[0].style.display="block";
+
+
+    });
+
+
+
+
+
+</script>
+
+
+
+</body>
+
+</html>

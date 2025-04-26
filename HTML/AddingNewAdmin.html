@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Person Data</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+    /* Reset some basic styles */
+    body, h2, p, input, select, button {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: #f4f7f6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-image: url("../../../../../../Users/HP/Desktop/WEB-P/RFTR13/ricepeFinder/images/cement-texture.jpg");
+    }
+
+    .container {
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #666;
+        font-weight: bold;
+    }
+
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background: #f9f9f9;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    button {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background: black;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    button:hover {
+        background: #248f8f;
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 20px;
+        }
+    }
+
+
+</style>
+
+</head>
+<body>
+<div class="container">
+    <form action="insert.php" method="post" class="form">
+        <h2>Create-New-Admin</h2>
+        <div class="form-group">
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname" required>
+        </div>
+        <div class="form-group">
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lname" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="birthdate">Birthdate:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>

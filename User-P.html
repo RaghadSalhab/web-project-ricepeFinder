@@ -1,0 +1,498 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+    <meta charset="UTF-8">
+
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
+
+
+
+
+
+
+    <title>CodePen - slider sign in / sign up form</title>
+
+    <link rel="canonical" href="https://codepen.io/technext/pen/KKWYPGM">
+
+
+
+
+    <style>
+
+        .horizontal-menu {
+            background-color: #248f8f;
+            overflow: hidden;
+        }
+
+        .horizontal-menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .horizontal-menu ul li {
+            float: left;
+        }
+
+        .horizontal-menu ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .horizontal-menu ul li a:hover {
+            background-color: #248f8f;
+            font-size:20px;
+            font-weight: bold;
+
+
+        }
+
+
+
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+           /*background-image: url("photo/tree.png");*/
+            background-repeat: no-repeat;
+            background-position: right bottom;
+            background-size:250px 250px ;
+
+
+
+        }
+
+
+
+        input,
+        button {
+            border: none;
+            outline: none;
+            background: none;
+            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        }
+
+        .tip {
+            font-size: 20px;
+            margin: 40px auto 50px;
+            text-align: center;
+        }
+
+        .cont {
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            width: 900px;
+            height: 550px;
+            margin: 0 auto 100px;
+            background: #fff;
+            box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.3), 10px 10px 15px rgba(70, 70, 70, 0.15), inset -10px -10px 15px rgba(255, 255, 255, 0.3), inset 10px 10px 15px rgba(70, 70, 70, 0.15);
+        }
+        #correct_pass{
+            text-align: center;
+            color: black;
+
+        }
+
+        .form {
+            position: relative;
+            width: 640px;
+            height: 100%;
+            -webkit-transition: -webkit-transform 1.2s ease-in-out;
+            transition: -webkit-transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+            padding: 50px 30px 0;
+        }
+
+        .sub-cont {
+            overflow: hidden;
+            position: absolute;
+            left: 640px;
+            top: 0;
+            width: 900px;
+            height: 100%;
+            padding-left: 260px;
+            background: #fff;
+            -webkit-transition: -webkit-transform 1.2s ease-in-out;
+            transition: -webkit-transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+        }
+
+        .cont.s--signup .sub-cont {
+            -webkit-transform: translate3d(-640px, 0, 0);
+            transform: translate3d(-640px, 0, 0);
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            width: 260px;
+            height: 36px;
+            border-radius: 30px;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .img {
+            overflow: hidden;
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 260px;
+            height: 100%;
+            padding-top: 360px;
+        }
+
+        .img:before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 900px;
+            height: 100%;
+            opacity: .8;
+            background-size: cover;
+            -webkit-transition: -webkit-transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+        }
+
+        .img:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .cont.s--signup .img:before {
+            -webkit-transform: translate3d(640px, 0, 0);
+            transform: translate3d(640px, 0, 0);
+        }
+
+        .img__text {
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            top: 50px;
+            width: 100%;
+            padding: 0 20px;
+            text-align: center;
+            color: #fff;
+            -webkit-transition: -webkit-transform 1.2s ease-in-out;
+            transition: -webkit-transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out;
+            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
+        }
+
+        .img__text h2 {
+            margin-bottom: 10px;
+            font-weight: normal;
+        }
+
+        .img__text p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .cont.s--signup .img__text.m--up {
+            -webkit-transform: translateX(520px);
+            transform: translateX(520px);
+        }
+
+        .img__text.m--in {
+            -webkit-transform: translateX(-520px);
+            transform: translateX(-520px);
+        }
+
+        .cont.s--signup .img__text.m--in {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+
+        .img__btn {
+            overflow: hidden;
+            z-index: 2;
+            position: relative;
+            width: 100px;
+            height: 36px;
+            margin: 0 auto;
+            background: transparent;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .img__btn:after {
+            content: '';
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #fff;
+            border-radius: 30px;
+        }
+
+        .img__btn span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            -webkit-transition: -webkit-transform 1.2s;
+            transition: -webkit-transform 1.2s;
+            transition: transform 1.2s;
+            transition: transform 1.2s, -webkit-transform 1.2s;
+        }
+
+        .img__btn span.m--in {
+            -webkit-transform: translateY(-72px);
+            transform: translateY(-72px);
+        }
+
+        .cont.s--signup .img__btn span.m--in {
+            -webkit-transform: translateY(0);
+            transform: translateY(0);
+        }
+
+        .cont.s--signup .img__btn span.m--up {
+            -webkit-transform: translateY(72px);
+            transform: translateY(72px);
+        }
+
+        h2 {
+            width: 100%;
+            font-size: 26px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            width: 260px;
+            margin: 25px auto 0;
+            text-align: center;
+        }
+
+        label span {
+            font-size: 12px;
+            color: #cfcfcf;
+            text-transform: uppercase;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            margin-top: 5px;
+            padding-bottom: 5px;
+            font-size: 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        .forgot-pass {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #cfcfcf;
+        }
+
+        .submit {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            background: #248f8f;
+            text-transform: uppercase;
+        }
+
+        .fb-btn {
+            border: 2px solid #d3dae9;
+            color: #8fa1c7;
+        }
+
+        .fb-btn span {
+            font-weight: bold;
+            color: #455a81;
+        }
+
+        .sign-in {
+            -webkit-transition-timing-function: ease-out;
+            transition-timing-function: ease-out;
+        }
+
+        .cont.s--signup .sign-in {
+            -webkit-transition-timing-function: ease-in-out;
+            transition-timing-function: ease-in-out;
+            -webkit-transition-duration: 1.2s;
+            transition-duration: 1.2s;
+            -webkit-transform: translate3d(640px, 0, 0);
+            transform: translate3d(640px, 0, 0);
+        }
+
+        .sign-up {
+            -webkit-transform: translate3d(-900px, 0, 0);
+            transform: translate3d(-900px, 0, 0);
+        }
+
+        .cont.s--signup .sign-up {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+        .menu pre{
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+
+    <script>
+        window.console = window.console || function(t) {};
+    </script>
+
+
+
+</head>
+
+<body translate="no">
+<nav class="horizontal-menu">
+    <ul class="menu">
+        <li><a href="#home"><img src="photo/home%20(2).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Home</pre></a></li>
+        <li><a href="#User"><img src="photo/user.png" style="width:  30px; height:  30px;margin-left: 3px;"><pre>User</pre></a></li>
+
+        <li><a href="#Recipes"> <img src="photo/recipe-book%20(2).png" style="width:30px; height:30px;margin-left: 3px;"><pre>Recipes</pre></a></li>
+        <li><a href="#My_Recipe"><img src="photo/meal%20(3).png" style="width:30px; height: 30px;margin-left: 3px;"><pre>My Recipe</pre></a></li>
+        <li><a href="#Add_Recipe"> <img src="photo/add%20(3).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Add Recipe</pre></a></li>
+        <li><a href="#Favorite"> <img src="photo/heart.png" style="width: 30px; height: 30px;"><pre>Favorite</pre></a></li>
+
+    </ul>
+</nav>
+<script src="script.js">document.addEventListener("DOMContentLoaded", function() {
+    var menuItems = document.querySelectorAll('.horizontal-menu ul li a');
+
+    menuItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            menuItems.forEach(function(menuItem) {
+                menuItem.style.backgroundColor = ''; // Reset background color
+            });
+            item.style.backgroundColor = '#555'; // Set new background color
+        });
+    });
+});
+</script>
+<br>
+<br>
+<!-- apply page-->
+<div class="cont">
+    <div class="form sign-in" >
+       <h2>My Profile </h2>
+        <label>
+            <span>Username</span>
+            <input type="text"  readonly value="raghad salhab"/>
+        </label>
+        <label>
+            <span>Email</span>
+            <input type="email" readonly  value="tahertona
+@gmail.com"/>
+        </label>
+        <label>
+            <span>Password</span>
+            <input type="password"  value="tonaRaghad" readonly/>
+        </label>
+
+        <label>
+            <span>Birthday</span>
+            <input type="email" value="13/3/2004" readonly/>
+        </label>
+
+    </div>
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text m--up">
+
+                <h3>If you want to change your information,make sure to click on update button.</h3>
+            </div>
+            <div class="img__text m--in">
+
+                <h3>if you finish the updating operation ,make sure to click on apply button.
+                   </h3>
+            </div>
+            <div class="img__btn">
+                <span class="m--up">Update</span>
+                <span class="m--in">Apply</span>
+            </div>
+        </div>
+
+
+        <!-- update page-->
+
+        <div class="form sign-up">
+            <h2>Updating Operation</h2>
+            <label>
+                <span>UserName</span>
+                <input type="text" value="raghad salhab" readonly/>
+            </label>
+
+            <label>
+                <span>Email</span>
+                <input type="email" value="tahertona@gmail.com" readonly />
+            </label>
+            <label>
+                <span>Old Password</span>
+                <input type="password" />
+            </label>
+
+            <button type="button" class="submit">Check</button>
+            <b><p id="correct_pass" >you have enterd a correct password.
+            </p></b>
+            <label style="            display: none;">
+                <span>New Password</span>
+                <input type="password" />
+            </label>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.querySelector('.img__btn').addEventListener('click', function() {
+        document.querySelector('.cont').classList.toggle('s--signup');
+    });
+</script>
+
+
+
+</body>
+
+</html>

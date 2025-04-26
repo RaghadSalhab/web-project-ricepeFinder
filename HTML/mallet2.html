@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        .slider, .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px;
+        }
+        .slider button, .search-container button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #248f8f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .search-container input {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            margin-right: 10px;
+        }
+        .recipes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .recipe {
+            width: 200px;
+            height: 400px;
+            background-color: white;
+            border-radius: 10px;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .recipe:hover {
+            transform: scale(1.05);
+        }
+        .recipe img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+        .recipe .description {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            transition: opacity 0.3s;
+        }
+        .recipe:hover .description {
+            display: block;
+            opacity: 1;
+        }
+        .stars {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .stars span {
+            font-size: 20px;
+            color: #ccc;
+        }
+        .stars .filled {
+            color: gold;
+        }
+        .info {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .rating-slider {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .rating-slider input[type="range"] {
+            width: calc(100% - 20px);
+            margin: 0 10px;
+        }
+        .rating-slider input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #248f8f;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .rating-slider input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #248f8f;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+    </style>
+    <script>
+        function filterRecipes(filterType, filterValue) {
+            fetch(`fetch_recipes33.php?${filterType}=${filterValue}`)
+                .then(response => response.json())
+                .then(data => {
+                    const recipesContainer = document.querySelector('.recipes');
+                    recipesContainer.innerHTML = '';
+
+                    data.forEach(recipe => {
+                        const recipeElement = document.createElement('div');
+                        recipeElement.className = 'recipe';
+
+                        const img = document.createElement('img');
+                        img.src = recipe.ReclmgUrl;
+                        recipeElement.appendChild(img);
+
+                        const description = document.createElement('div');
+                        description.className = 'description';
+                        description.textContent = recipe.description;
+                        recipeElement.appendChild(description);
+
+                        const name = document.createElement('div');
+                        name.textContent = recipe.name;
+                        recipeElement.appendChild(name);
+
+                        const level = document.createElement('div');
+                        level.className = 'info';
+                        level.textContent = `Level: ${recipe.level}`;
+                        recipeElement.appendChild(level);
+
+                        const time = document.createElement('div');
+                        time.className = 'info';
+                        time.textContent = `Time: ${recipe.time}`;
+                        recipeElement.appendChild(time);
+
+                        const stars = document.createElement('div');
+                        stars.className = 'stars';
+                        for (let i = 0; i < 5; i++) {
+                            const star = document.createElement('span');
+                            star.textContent = '★';
+                            if (i < recipe.Rating) {
+                                star.classList.add('filled');
+                            }
+                            stars.appendChild(star);
+                        }
+                        recipeElement.appendChild(stars);
+
+                        const ratingSlider = document.createElement('div');
+                        ratingSlider.className = 'rating-slider';
+                        const slider = document.createElement('input');
+                        slider.type = 'range';
+                        slider.min = '1';
+                        slider.max = '5';
+                        slider.value = recipe.Rating;
+                        slider.oninput = function() {
+                            updateRating(recipe.reqID, this.value);
+                        };
+                        ratingSlider.appendChild(slider);
+                        recipeElement.appendChild(ratingSlider);
+
+                        recipesContainer.appendChild(recipeElement);
+                    });
+                });
+        }
+
+        function searchRecipeByName() {
+            const searchInput = document.getElementById('searchInput').value;
+            if (searchInput) {
+                filterRecipes('name', encodeURIComponent(searchInput));
+            }
+        }
+
+        function updateRating(recipeId, rating) {
+            fetch(`rate_recipe.php?recipeId=${recipeId}&rating=${rating}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log(`Successfully rated recipe ID ${recipeId} with rating ${rating}`);
+                    } else {
+                        console.error(`Failed to rate recipe ID ${recipeId}`);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recipe Selector</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 20px;
+            }
+            .slider, .search-container {
+                display: flex;
+                justify-content: center;
+                margin: 10px;
+            }
+            .slider button, .search-container button {
+                margin: 0 10px;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                background-color: #248f8f;
+                color: white;
+                border: none;
+                border-radius: 5px;
+            }
+            .search-container input {
+                padding: 10px;
+                font-size: 16px;
+                width: 300px;
+                margin-right: 10px;
+            }
+            .recipes {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+                padding: 20px;
+            }
+            .recipe {
+                width: 200px;
+                height: 400px;
+                background-color: white;
+                border-radius: 10px;
+                text-align: center;
+                padding: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                position: relative;
+                transition: transform 0.3s;
+            }
+            .recipe:hover {
+                transform: scale(1.05);
+            }
+            .recipe img {
+                width: 100%;
+                height: auto;
+                border-radius: 50%;
+                margin-top: 10px;
+            }
+            .recipe .description {
+                display: none;
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 10px;
+                border-radius: 10px;
+                transition: opacity 0.3s;
+            }
+            .recipe:hover .description {
+                display: block;
+                opacity: 1;
+            }
+            .stars {
+                display: flex;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            .stars span {
+                font-size: 20px;
+                color: #ccc;
+            }
+            .stars .filled {
+                color: gold;
+            }
+            .info {
+                text-align: center;
+                margin-top: 10px;
+                font-size: 14px;
+            }
+            .rating-slider {
+                width: 100%;
+                margin-top: 10px;
+            }
+            .rating-slider input[type="range"] {
+                width: calc(100% - 20px);
+                margin: 0 10px;
+            }
+            .rating-slider input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 20px;
+                height: 20px;
+                background: #248f8f;
+                cursor: pointer;
+                border-radius: 50%;
+            }
+            .rating-slider input[type="range"]::-moz-range-thumb {
+                width: 20px;
+                height: 20px;
+                background: #248f8f;
+                cursor: pointer;
+                border-radius: 50%;
+            }
+        </style>
+        <script>
+            function filterRecipes(filterType, filterValue) {
+                fetch(`fetch_recipes33.php?${filterType}=${filterValue}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const recipesContainer = document.querySelector('.recipes');
+                        recipesContainer.innerHTML = '';
+
+                        data.forEach(recipe => {
+                            const recipeElement = document.createElement('div');
+                            recipeElement.className = 'recipe';
+
+                            const img = document.createElement('img');
+                            img.src = recipe.ReclmgUrl;
+                            recipeElement.appendChild(img);
+
+                            const description = document.createElement('div');
+                            description.className = 'description';
+                            description.textContent = recipe.description;
+                            recipeElement.appendChild(description);
+
+                            const name = document.createElement('div');
+                            name.textContent = recipe.name;
+                            recipeElement.appendChild(name);
+
+                            const level = document.createElement('div');
+                            level.className = 'info';
+                            level.textContent = `Level: ${recipe.level}`;
+                            recipeElement.appendChild(level);
+
+                            const time = document.createElement('div');
+                            time.className = 'info';
+                            time.textContent = `Time: ${recipe.time}`;
+                            recipeElement.appendChild(time);
+
+                            const stars = document.createElement('div');
+                            stars.className = 'stars';
+                            for (let i = 0; i < 5; i++) {
+                                const star = document.createElement('span');
+                                star.textContent = '★';
+                                if (i < recipe.Rating) {
+                                    star.classList.add('filled');
+                                }
+                                stars.appendChild(star);
+                            }
+                            recipeElement.appendChild(stars);
+
+                            const ratingSlider = document.createElement('div');
+                            ratingSlider.className = 'rating-slider';
+                            const slider = document.createElement('input');
+                            slider.type = 'range';
+                            slider.min = '1';
+                            slider.max = '5';
+                            slider.value = recipe.Rating;
+                            slider.oninput = function() {
+                                updateRating(recipe.reqID, this.value);
+                            };
+                            ratingSlider.appendChild(slider);
+                            recipeElement.appendChild(ratingSlider);
+
+                            recipesContainer.appendChild(recipeElement);
+                        });
+                    });
+            }
+
+            function searchRecipeByName() {
+                const searchInput = document.getElementById('searchInput').value;
+                if (searchInput) {
+                    filterRecipes('name', encodeURIComponent(searchInput));
+                }
+            }
+
+            function updateRating(recipeId, rating) {
+                fetch(`rate_recipe.php?recipeId=${recipeId}&rating=${rating}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log(`Successfully rated recipe ID ${recipeId} with rating ${rating}`);
+                        } else {
+                            console.error(`Failed to rate recipe ID ${recipeId}`);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        </script>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            .horizontal-menu {
+                background-color: #248f8f;
+                overflow: hidden;
+            }
+
+            .horizontal-menu ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: nowrap;
+            }
+
+            .horizontal-menu ul li {
+                display: flex;
+                align-items: center;
+            }
+
+            .horizontal-menu ul li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 20px;
+                text-decoration: none;
+            }
+
+            .horizontal-menu ul li a:hover {
+                background-color: #248f8f;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .menu {
+                display: flex;
+                flex-grow: 1;
+            }
+
+            .menu li {
+                flex: none;
+            }
+
+            .menu pre {
+                font-size: 20px;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .chip {
+                padding: 0 25px;
+                height: 50px;
+                font-size: 16px;
+                line-height: 50px;
+                border-radius: 25px;
+                background-color: #f1f1f1;
+                color: #0c0c0c;
+                display: flex;
+                align-items:center;
+                margin-left: auto;
+            }
+
+            .chip img {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                margin-left: 10px;
+            }
+
+            @media (max-width: 768px) {
+                .horizontal-menu ul {
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+
+                .horizontal-menu ul li {
+                    flex: 1 1 auto;
+                }
+
+                .chip {
+                    order: 1;
+                    width: 100%;
+                    justify-content: center;
+                    margin: 10px 0;
+                }
+
+                .chip img {
+                    height: 40px;
+                    width: 40px;
+                }
+
+                .menu pre {
+                    font-size: 16px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .horizontal-menu ul li a {
+                    padding: 20px;
+                    font-size: 14px;
+                }
+
+                .menu pre {
+                    font-size: 14px;
+                }
+
+                .chip {
+                    padding: 0 15px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+    <nav class="horizontal-menu">
+        <ul class="menu">
+            <li><a href="home.php"><img src="../MainMenuBarPhoto/home%20(2).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Home</pre></a></li>
+            <li><a href="User-P.php"><img src="../MainMenuBarPhoto/user.png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>User</pre></a></li>
+            <li><a href="Recipes.php"><img src="../MainMenuBarPhoto/recipe-book%20(2)%20(1).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Recipes</pre></a></li>
+            <li><a href="myRecipe.php."><img src="../MainMenuBarPhoto/meal%20(3)%20(1).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>My Recipe</pre></a></li>
+
+            <li><a href="AddRecipe.php"><img src="../MainMenuBarPhoto/add%20(3).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Add Recipe</pre></a></li>
+            <li><a href="favorite.php"><img src="../MainMenuBarPhoto/heart.png" style="width: 30px; height: 30px;"><pre>Favorite</pre></a></li>
+            <li class="chip">
+                <img src="<?php echo $img1; ?>" alt="Person" class="chipImg">
+                <?php echo htmlspecialchars($username); ?>
+            </li>
+            <li class="chip2">
+                <img onclick="        window.location.href = 'Sign-and-log-In.html';
+" style="margin: 0px;padding: 0px;border: 2px #cccccc none;width: 100%;color: black;height: 50px;cursor: pointer" src="../MainMenuBarPhoto/logout%20(2).png"></img>
+            </li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="slider">
+            <button onclick="filterRecipes('level', 'easy')">Easy-Way</button>
+            <button onclick="filterRecipes('level', 'intermediate')">Intermediate-Way</button>
+            <button onclick="filterRecipes('level', 'hard')">Hard-Way</button>
+            <button onclick="filterRecipes('time', 'short')">Short-Time</button>
+            <button onclick="filterRecipes('time', 'intermediate')">Intermediate-Time</button>
+            <button onclick="filterRecipes('time', 'long')">Long-Time</button>
+        </div><br>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Enter recipe name">
+            <button onclick="searchRecipeByName()">Search</button>
+            <button onclick="location.href='new2y.html'">Search-By-Ingredients-Name</button>
+        </div>
+        <div class="recipes"></div>
+    </div>
+    </body>
+    </html>
+

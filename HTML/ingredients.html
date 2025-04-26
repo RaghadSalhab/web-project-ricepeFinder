@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function  showMore1(x){
+            document.getElementById("showmoreContainer"+x).style="display: inline-block;"
+            document.getElementById("showMore"+x).style="display:none;"
+            document.getElementById("showLess"+x).style="display:block;"
+
+        }
+        function  showLess1(x){
+            document.getElementById("showmoreContainer"+x).style="display:none;"
+            document.getElementById("showLess"+x).style="display:none;"
+            document.getElementById("showMore"+x).style="display:block;"
+
+        }
+
+    </script>
+        <script>
+                function addIngredient(x) {
+                alert('Added Successfully ' + x);
+
+                var ingredientID = x;
+
+                // AJAX request setup
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '../php/add.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                // AJAX response handler
+                xhr.onload = function () {
+                if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                alert('Ingredient added successfully with reqID: ' + response.reqID);
+            } else {
+                alert('Error: ' + response.error);
+            }
+            } else {
+                alert('Request failed. Status: ' + xhr.status);
+            }
+            };
+
+                // AJAX error handler
+                xhr.onerror = function () {
+                alert('Network error occurred');
+            };
+
+                // Send data to PHP script
+                var params = 'x=' + encodeURIComponent(ingredientID);
+                xhr.send(params);
+            }
+        </script>
+    </script>
+
+
+    </script>
+    <style>
+        body {
+
+
+        }
+
+        .Warehouse_basics {
+            border-radius: 50px;
+
+            border: #070e6a solid 5px;
+            margin-top: 100px;
+            margin-left: 60px;
+            padding: 50px;
+            width: 40%;
+            background-color: #f1f1f1;
+
+        }
+
+        .Fruit {
+            border-radius: 50px;
+            border: #070e6a solid 5px;
+            margin-top: 100px;
+            margin-left: 60px;
+            padding: 50px;
+            width: 40%;
+            background-color: #f1f1f1;
+
+        }
+
+        .vegetable {
+            border-radius: 50px;
+            border: #070e6a solid 5px;
+            margin-top: 30px;
+            margin-left: 60px;
+            padding: 50px;
+            width: 37%;
+            background-color: #f1f1f1;
+
+        }
+
+        .meat {
+            border-radius: 50px;
+            border: #070e6a solid 5px;
+            margin-top: 30px;
+            margin-left: 60px;
+
+            padding: 50px;
+            width: 37%;
+            background-color: #f1f1f1;
+
+        }
+
+
+        #showMore1, #showLess1, #showMore2, #showLess2, #showMore3, #showLess3, #showMore4, #showLess4 {
+            display: block;
+            cursor: pointer;
+            margin-top: 10px;
+            text-align: center;
+            border-radius: 15px;
+            color: #070e6a;
+            font-size: 20px;
+            font-weight: bold;
+
+
+        }
+
+        .mainNames {
+            font-weight: bolder;
+            font-size: 20px;
+            position: relative;
+            margin-left: 10px;
+            top: -25px;
+        }
+        #showMore1:hover,#showMore2:hover,#showMore3:hover,#showMore4:hover{
+            background-color: #070e6a;
+            color: #eaeae8;
+        }
+        #showLess1:hover, #showLess2:hover, #showLess3:hover, #showLess4:hover{
+            background-color: #070e6a;
+            color: #eaeae8;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 20px; /* Adds space between the cards */
+
+        }
+
+        .maincontainer {
+            width: 75px;
+            height: 75px;
+            perspective: 1000px; /* Adds perspective for 3D effect */
+        }
+
+        .thecard {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease;
+        }
+
+        .maincontainer:hover .thecard {
+            transform: rotateY(180deg);
+        }
+
+        .thefront, .theback {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            backface-visibility: hidden;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .thefront {
+            background: #248f8f;
+            color: #000;
+        }
+        .showmoreContainer{
+            margin-top: 20px;
+            display: none;
+
+        }
+
+        .theback {
+            background: #fafafa;
+            color: #333;
+            transform: rotateY(180deg);
+        }
+
+        .thefront h1, .theback h1 {
+            font-weight: bold;
+            font-size: 18px;
+            color:white;
+
+        }
+        /*
+                .thefront p, .theback p {
+                    font-family: Algerian;
+                    font-weight: bolder;
+                    font-size: 12px;
+                }*/
+        .search{
+            position: relative;
+
+            top: 55px;
+        }
+        .search_box{
+
+            margin-left: 10px;
+            width: 400px;
+            height: 30px;
+            border: #248f8f 3px solid;
+            border-radius: 50px;
+        }
+        .allIng{
+            display: flex;
+        }
+    </style>
+    <style>
+        .finish-button {
+            background-color: #248f8f; /* Primary color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .finish-button:hover {
+            background-color: #1c7474; /* Darker shade on hover */
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+
+        .finish-button:active {
+            background-color: #145959; /* Even darker shade on click */
+            transform: translateY(0); /* Reset lift on click */
+        }
+    </style>
+</head>
+<body>
+<div>
+    <button id=" close_button" style="float: right; background-color: transparent;border: none")><img src="../ingredientPhoto/close-button%20(1).png" width="50px" height="50px" ></button>
+</div>
+<div class="search">
+    <center>
+        <img src="../ingredientPhoto/search%20(2).png" width="30px" height="30px">
+        <input type="text" width="max-content" placeholder="Search" class="search_box"></center>
+</div>
+<div class="allIng">
+    <div  class="Warehouse_basics">
+        <img src="../ingredientPhoto/warehouse.png" width="80px" height="80px" ><span class="mainNames">Warehouse basics</span>
+        <input type="checkbox" id="ch1" style="display: none">
+        <div class="card-container">
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>egg</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/egg.png" width="50px" height="50px">
+                        <button onclick="addIngredient(1)" >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>potato</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/potatoes.png" width="50px" height="50px">
+                        <button onclick="addIngredient(2)" >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>garlic</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/garlic.png" width="50px" height="50px">
+                        <button onclick="addIngredient(3)" >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>tomato</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/tomato.png" width="50px" height="50px">
+                        <button onclick="addIngredient(4)" >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>onion</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/onion.png" width="50px" height="50px">
+                        <button onclick="addIngredient(5)" >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>pasta</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/spaghetti.png" width="50px" height="50px">
+                        <button onclick="addIngredient(6)" >Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card-container">
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>milk</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/milk.png" width="50px" height="50px">
+                        <button onclick="addIngredient(7)" >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>flour</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/flour.png" width="50px" height="50px">
+                        <button onclick="addIngredient(8)" >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>sugar</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/sugar.png" width="50px" height="50px">
+                        <button onclick="addIngredient(9)" >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>olive oil</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/olive-oil.png" width="50px" height="50px">
+                        <button onclick="addIngredient(10)" >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>butter</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/butter.png" width="50px" height="50px">
+
+                        <button onclick="addIngredient(11)" >Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>hot pepper</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/chili-pepper.png" width="50px" height="50px">
+                        <button onclick="addIngredient(12)" >Add</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <label for="ch1" id="showMore1"  onclick="showMore1(1)">show more</label>
+
+        <div class="showmoreContainer" id="showmoreContainer1">
+            <div class="card-container">
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Lemon</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/lemon.png" width="50px" height="50px">
+                            <button onclick="addIngredient(13)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>bread</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/bre.png" width="50px" height="50px">
+                            <button onclick="addIngredient(14)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>ketchup</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/ketchup.png" width="50px" height="50px">
+                            <button onclick="addIngredient(15)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Cucumbers</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Cucumbers.png" width="50px" height="50px">
+                            <button onclick="addIngredient(16)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>honey</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/honey.png" width="50px" height="50px">
+                            <button onclick="addIngredient(17)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>coriander</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/coriander.png" width="50px" height="50px">
+                            <button onclick="addIngredient(18)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card-container">
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>carrot</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/carrot.png" width="50px" height="50px">
+                            <button onclick="addIngredient(19)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>lentil</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/lentil.png" width="50px" height="50px">
+                            <button onclick="addIngredient(20)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>parsley</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/4788147.png" width="50px" height="50px">
+                            <button onclick="addIngredient(21)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>zaatar</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/zaatar.png" width="50px" height="50px">
+                            <button onclick="addIngredient(22)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>yeast</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/5900694.png" width="50px" height="50px">
+
+                            <button onclick="addIngredient(23)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>rice</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/rice.png" width="50px" height="50px">
+                            <button onclick="addIngredient(24)" >Add</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <label for="ch1" id="showLess1"  onclick="showLess1(1)">show less</label>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <!--end of warehouse-->
+    <div  class="Fruit">
+        <img src="../ingredientPhoto/fruit.png" width="80px" height="80px" ><span class="mainNames">Fruit</span>
+        <input type="checkbox" id="ch2" style="display: none">
+        <div class="card-container">
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>banana</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/banana.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>Strawberry</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/Strawberry.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>apples</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/apples.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>orange</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/orange.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>mango</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/mango.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>dates</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/Fruit%20dates.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card-container">
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>pomegranate</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/pomegranate.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>blueberry</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/blueberry.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>pineapple</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/pineapple.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>watermelon</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/watermelon.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>cherry</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/cherry.png" width="50px" height="50px">
+
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>kiwi</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/kiwi.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <label for="ch1" id="showMore2"  onclick="showMore1(2)">show more</label>
+
+        <div class="showmoreContainer" id="showmoreContainer2">
+            <div class="card-container">
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>apricot</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/apricot.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>fig</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/fig.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>grapes</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/grapes.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>peach</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/peach.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Guava</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Guava.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>pear</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/pear.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card-container">
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Chestnut</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Chestnut.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>coconut</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/coconut.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Grapefruit</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Grapefruit.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Pomelo</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Pomelo.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>dried fruit</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/dried%20fruit.png" width="50px" height="50px">
+
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Calamantina</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Calamantina.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <label for="ch1" id="showLess2"  onclick="showLess1(2)">show less</label>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <!--endOfFruit-->
+</div>
+<div class="allIng">
+    <div  class="vegetable">
+        <img src="../ingredientPhoto/vegetable.png" width="80px" height="80px" ><span class="mainNames">vegetable</span>
+        <input type="checkbox" id="ch3" style="display: none">
+        <div class="card-container">
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>mushroom</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/egg.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>zucchini</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/potatoes.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>lettuce</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/garlic.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>tomato</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/tomato.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>onion</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/onion.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>pasta</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/spaghetti.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card-container">
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>milk</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/milk.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>flour</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/flour.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>sugar</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/sugar.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>olive oil</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/olive-oil.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>butter</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/butter.png" width="50px" height="50px">
+
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>hot pepper</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/chili-pepper.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <label for="ch1" id="showMore3"  onclick="showMore1(3)">show more</label>
+
+        <div class="showmoreContainer" id="showmoreContainer3">
+            <div class="card-container">
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>egg</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/egg.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>potato</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/potatoes.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>garlic</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/garlic.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>tomato</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/tomato.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>onion</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/onion.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>pasta</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/spaghetti.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card-container">
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>milk</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/milk.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>flour</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/flour.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>sugar</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/sugar.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>olive oil</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/olive-oil.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>butter</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/butter.png" width="50px" height="50px">
+
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>hot pepper</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/chili-pepper.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <label for="ch1" id="showLess3"  onclick="showLess1(3)">show less</label>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <!--end of vegetable-->
+    <div  class="meat">
+        <img src="../ingredientPhoto/meat.png" width="80px" height="80px" ><span class="mainNames">Meat</span>
+        <input type="checkbox" id="ch4" style="display: none">
+        <div class="card-container">
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>Minced meat</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/Minced%20meat.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>Shawarma</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/Shawarma.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>Burger</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/Burger.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>fish</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/fish.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>sausage</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/sausage.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>Kofta</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/Kofta.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card-container">
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>kebab</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/kebab.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>salmon</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/salmon.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>octopus</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/octopus.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>Mortadella</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/Mortadella.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>Steak</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/Steak.png" width="50px" height="50px">
+
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="maincontainer">
+                <div class="thecard">
+                    <div class="thefront">
+                        <h1>Tuna</h1>
+                    </div>
+                    <div class="theback">
+                        <img src="../ingredientPhoto/Tuna.png" width="50px" height="50px">
+                        <button>Submit</button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <label for="ch1" id="showMore4"  onclick="showMore1(4)">show more</label>
+
+        <div class="showmoreContainer" id="showmoreContainer4">
+            <div class="card-container">
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Shrimp</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Shrimp.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Sardines</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Sardines.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Liver</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Liver.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Chicken</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Chicken.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Beef</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Beef.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Trotters</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/shin%20of%20beef.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card-container">
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Chicken feathers</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Chicken%20feathers.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Grouper</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/ham.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Crispy</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Crispy.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>Brahma chicken</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/Brahma%20chicken.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>chicken Grill</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/chicken%20Grill.png" width="50px" height="50px">
+
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="maincontainer">
+                    <div class="thecard">
+                        <div class="thefront">
+                            <h1>fried chicken</h1>
+                        </div>
+                        <div class="theback">
+                            <img src="../ingredientPhoto/fried%20chicken.png" width="50px" height="50px">
+                            <button>Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <label for="ch1" id="showLess4"  onclick="showLess1(4)">show less</label>
+
+        </div>
+
+    </div>
+    <!--endOfMeat-->
+</div>
+</form>
+
+<br>
+<center><button class="finish-button" onclick="history.back();">Finish</button></center>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Basic Meta Tags -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Delfood</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome CSS -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+
+    <!-- Slick Slider CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css" integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- Responsive styles -->
+    <link href="css/responsive.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .horizontal-menu {
+            background-color: #248f8f;
+            overflow: hidden;
+        }
+
+        .horizontal-menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .horizontal-menu ul li {
+            flex: 1;
+        }
+
+        .horizontal-menu ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .horizontal-menu ul li a:hover {
+            background-color: #248f8f;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .chip {
+            padding: 0 25px;
+            height: 50px;
+            font-size: 16px;
+            line-height: 50px;
+            border-radius: 25px;
+            background-color: #f1f1f1;
+            color: #0c0c0c;
+            display: flex;
+            align-items: center;
+        }
+
+        .chip img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        .hero_area {
+            padding: 20px;
+            text-align: center;
+        }
+
+        #klkl {
+            margin: 20px;
+            border: 4px double #248f8f;
+            padding: 15px;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .slider_section .img-box {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer_section {
+            background-color: #248f8f;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .horizontal-menu ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .horizontal-menu ul li {
+                width: 100%;
+            }
+
+            .chipOuter {
+                display: none;
+            }
+
+            #klkl {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .horizontal-menu ul li a {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .chip {
+                font-size: 14px;
+                height: 40px;
+                line-height: 40px;
+            }
+
+            .chip img {
+                height: 40px;
+                width: 40px;
+            }
+
+            #klkl {
+                font-size: 14px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<nav class="horizontal-menu">
+    <ul class="menu">
+        <li><a href="home.html"><img src="../MainMenuBarPhoto/home%20(2).png" style="width: 30px; height: 30px; margin-left: 3px;"><pre>Home</pre></a></li>
+        <li><a href="User-P.html"><img src="../MainMenuBarPhoto/user.png" style="width: 30px; height: 30px; margin-left: 3px;"><pre>User</pre></a></li>
+        <li><a href="Recipes.html"><img src="../MainMenuBarPhoto/recipe-book%20(2)%20(1).png" style="width:30px; height:30px; margin-left: 3px;"><pre>Recipes</pre></a></li>
+        <li><a href="MyRecipe.html"><img src="../MainMenuBarPhoto/meal%20(3)%20(1).png" style="width:30px; height: 30px; margin-left: 3px;"><pre>My Recipe</pre></a></li>
+        <li><a href="#Add_Recipe"><img src="../MainMenuBarPhoto/add%20(3).png" style="width: 30px; height: 30px; margin-left: 3px;"><pre>Add Recipe</pre></a></li>
+        <li><a href="#Favorite"><img src="../MainMenuBarPhoto/heart.png" style="width: 30px; height: 30px;"><pre>Favorite</pre></a></li>
+        <li class="chipOuter">
+            <a href="User-P.html">
+                <div class="chip">
+                    <img src="../MainMenuBarPhoto/profile.png" alt="Person" width="96" height="96" class="chipImg">raghad salhab
+                </div>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="hero_area">
+    <section class="slider_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="detail-box">
+                        <h1 style="color:#000;"></h1>
+                        <pre id="klkl" style="color:#000; font-size: 20px;">
+                <span style="font-size: 35px; font-family: Algerian">Welcome to our special word !</span>
+                <br><span>We make sure that you will find any recipes you want and you will surly like it ...</span>
+              </pre>
+                    </div>
+                    <div class="find_container">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <form>
+                                        <div class="form-row"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider_container">
+            <div class="item"><div class="img-box"><img src="../HomePageImages/slider-img1.png" alt="" /></div></div>
+            <div class="item"><div class="img-box"><img src="../HomePageImages/slider-img2.png" alt="" /></div></div>
+            <div class="item"><div class="img-box"><img src="../HomePageImages/slider-img3.png" alt="" /></div></div>
+            <div class="item"><div class="img-box"><img src="../HomePageImages/slider-img4.png" alt="" /></div></div>
+        </div>
+    </section>
+</div>
+
+<footer class="footer_section">
+    <div class="container">
+        <p>&copy; <span id="displayYear"></span> All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>Distributed By: <a href="https://themewagon.com/">ThemeWagon</a></p>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="../js/jquery-3.4.1.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="../js/bootstrap.js"></script>
+<!-- Slick Slider JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+<!-- Nice Select JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice "></script>

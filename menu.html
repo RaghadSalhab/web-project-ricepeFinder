@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontal Menu</title>
+
+    <style>
+
+        .horizontal-menu {
+            background-color: #248f8f;
+            overflow: hidden;
+        }
+
+        .horizontal-menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .horizontal-menu ul li {
+            float: left;
+        }
+
+        .horizontal-menu ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .horizontal-menu ul li a:hover {
+            background-color: #248f8f;
+            font-size:20px;
+            font-weight: bold;
+
+
+        }
+
+
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .menu pre{
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+
+</head>
+<body>
+<nav class="horizontal-menu">
+    <ul class="menu">
+        <li><a href="#home"><img src="photo/home%20(2).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Home</pre></a></li>
+        <li><a href="#User"><img src="photo/user.png" style="width:  30px; height:  30px;margin-left: 3px;"><pre>User</pre></a></li>
+
+        <li><a href="#Recipes"> <img src="photo/recipe-book%20(2).png" style="width:30px; height:30px;margin-left: 3px;"><pre>Recipes</pre></a></li>
+        <li><a href="#My_Recipe"><img src="photo/meal%20(3).png" style="width:30px; height: 30px;margin-left: 3px;"><pre>My Recipe</pre></a></li>
+        <li><a href="#Add_Recipe"> <img src="photo/add%20(3).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Add Recipe</pre></a></li>
+        <li><a href="#Favorite"> <img src="photo/heart.png" style="width: 30px; height: 30px;"><pre>Favorite</pre></a></li>
+
+    </ul>
+</nav>
+<script src="script.js">document.addEventListener("DOMContentLoaded", function() {
+    var menuItems = document.querySelectorAll('.horizontal-menu ul li a');
+
+    menuItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            menuItems.forEach(function(menuItem) {
+                menuItem.style.backgroundColor = ''; // Reset background color
+            });
+            item.style.backgroundColor = '#555'; // Set new background color
+        });
+    });
+});
+</script>
+</body>
+</html>

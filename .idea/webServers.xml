@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="0c2faeb4-0ba0-4d0c-9aff-5973707ac0b4" name="serverName" url="http://localhost/webTrying2024\ricepeFinder">
+        <fileTransfer accessType="LOCAL" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>

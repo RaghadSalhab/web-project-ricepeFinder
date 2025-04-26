@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple Hover Effects</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            padding: 20px;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            gap: 20px;
+        }
+        .all{
+            margin-top: 1%;
+            display: flex;
+            flex-direction: row;
+
+            justify-content: space-evenly;
+        }
+
+        .outdiv {
+            border: #cccccc solid 2px;
+            background-color: #c2d6d6;
+            width: 300px;
+            height: 450px;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+
+        }
+
+        .outdiv:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .front {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .front .img {
+            width: 100%;
+            max-height: 200px;
+            overflow: hidden;
+        }
+
+        .front .img img {
+            width: 100%;
+            height: auto;
+        }
+
+        .detail, .rating,.level,.time{
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #f9f9f9;
+            margin-top: 5px;
+        }
+
+        .delete {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            background-color: #990000;
+            margin-top: 5px;
+            cursor: pointer;
+
+        }
+        .deleteButton{
+            font-size: 20px;
+            background-color: transparent;
+            cursor: pointer;
+            border: none;
+            color: #cccccc;
+        }
+        .way {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .outdiv:hover .way {
+            display: block;
+        }
+    </style>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .horizontal-menu {
+            background-color: #248f8f;
+            overflow: hidden;
+        }
+
+        .horizontal-menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+        .horizontal-menu ul li {
+            display: flex;
+            align-items: center;
+        }
+
+        .horizontal-menu ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .horizontal-menu ul li a:hover {
+            background-color: #248f8f;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .menu {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .menu li {
+            flex: none;
+        }
+
+        .menu pre {
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chip {
+            padding: 0 25px;
+            height: 50px;
+            font-size: 16px;
+            line-height: 50px;
+            border-radius: 25px;
+            background-color: #f1f1f1;
+            color: #0c0c0c;
+            display: flex;
+            align-items:center;
+            margin-left: auto;
+        }
+
+        .chip img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .all {
+                margin-top: 1%;
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Centers items horizontally */
+                justify-content: center; /* Centers items vertically */
+
+            }
+            .outdiv{
+                margin-top: 10%;
+
+            }
+            .horizontal-menu ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .horizontal-menu ul li {
+                flex: 1 1 auto;
+            }
+
+            .chip {
+                order: 1;
+                width: 100%;
+                justify-content: center;
+                margin: 10px 0;
+            }
+
+            .chip img {
+                height: 40px;
+                width: 40px;
+            }
+
+            .menu pre {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .all {
+                margin-top: 1%;
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Centers items horizontally */
+                justify-content: center; /* Centers items vertically */
+
+
+            }
+            .outdiv{
+                margin-top: 10%;
+                margin-left: 1%;
+            }
+
+            .horizontal-menu ul li a {
+                padding: 20px;
+                font-size: 14px;
+            }
+
+            .menu pre {
+                font-size: 14px;
+            }
+
+            .chip {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav class="horizontal-menu">
+    <ul class="menu">
+        <li><a href="home.html"><img src="../MainMenuBarPhoto/home%20(2).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Home</pre></a></li>
+        <li><a href="User-P.html"><img src="../MainMenuBarPhoto/user.png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>User</pre></a></li>
+        <li><a href="Recipes.html"><img src="../MainMenuBarPhoto/recipe-book%20(2)%20(1).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Recipes</pre></a></li>
+        <li><a href="MyRecipe.html"><img src="../MainMenuBarPhoto/meal%20(3)%20(1).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>My Recipe</pre></a></li>
+        <li><a href="AddRecipe.html"><img src="../MainMenuBarPhoto/add%20(3).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Add Recipe</pre></a></li>
+        <li><a href="favorite.html"><img src="../MainMenuBarPhoto/heart.png" style="width: 30px; height: 30px;"><pre>Favorite</pre></a></li>
+        <li class="chip">
+            <img src="../MainMenuBarPhoto/profile.png" alt="Person" class="chipImg">
+            raghad salhab
+        </li>
+    </ul>
+</nav>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var menuItems = document.querySelectorAll('.horizontal-menu ul li a');
+
+        menuItems.forEach(function(item) {
+            item.addEventListener('click', function() {
+                menuItems.forEach(function(menuItem) {
+                    menuItem.style.backgroundColor = ''; // Reset background color
+                });
+            });
+        });
+    });
+</script>
+<div class="all">
+    <div class="outdiv">
+        <div class="front">
+            <div class="img">
+                <img src="../HomePageImages/slider-img1.png" alt="Slider Image 1">
+            </div>
+            <div class="detail">
+                <p>Recipe 1: This is a sample recipe description.</p>
+            </div>
+            <div class="rating">
+                <p>Rating: ★★★★☆</p>
+            </div>
+            <div class="time">
+                <p>time:short</p>
+
+            </div>
+            <div class="level">
+                <p>level:hard</p>
+
+            </div>
+
+        </div>
+        <div class="way">
+            <p>Preparation steps for Recipe 1...</p>
+
+            <div class="delete">
+                <button class="deleteButton">delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="outdiv">
+        <div class="front">
+            <div class="img">
+                <img src="../HomePageImages/slider-img2.png" alt="Slider Image 2">
+            </div>
+            <div class="detail">
+                <p>Recipe 2: This is a sample recipe description.</p>
+            </div>
+            <div class="rating">
+                <p>Rating: ★★★☆☆</p>
+            </div>
+            <div class="time">
+                <p>time:short</p>
+
+            </div>
+            <div class="level">
+                <p>level:hard</p>
+
+            </div>
+        </div>
+        <div class="way">
+            <p>Preparation steps for Recipe 2...</p>
+            <div class="delete">
+                <button class="deleteButton">delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="outdiv">
+        <div class="front">
+            <div class="img">
+                <img src="../HomePageImages/slider-img3.png" alt="Slider Image 3">
+            </div>
+            <div class="detail">
+                <p>Recipe 3: This is a sample recipe description.</p>
+            </div>
+            <div class="rating">
+                <p>Rating: ★★★★★</p>
+            </div>
+            <div class="time">
+                <p>time:short</p>
+
+            </div>
+            <div class="level">
+                <p>level:hard</p>
+
+            </div>
+        </div>
+        <div class="way">
+            <p>Preparation steps for Recipe 3...</p>
+            <div class="delete">
+                <button class="deleteButton">delete</button>
+            </div>
+        </div>
+    </div>
+    <div class="outdiv">
+        <div class="front">
+            <div class="img">
+                <img src="../HomePageImages/slider-img3.png" alt="Slider Image 3">
+            </div>
+            <div class="detail">
+                <p>Recipe 3: This is a sample recipe description.</p>
+            </div>
+            <div class="rating">
+                <p>Rating: ★★★★★</p>
+            </div>
+            <div class="time">
+                <p>time:short</p>
+
+            </div>
+            <div class="level">
+                <p>level:hard</p>
+
+            </div>
+        </div>
+        <div class="way">
+            <p>Preparation steps for Recipe 3...</p>
+            <div class="delete">
+                <button class="deleteButton">delete</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

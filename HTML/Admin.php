@@ -1,0 +1,280 @@
+<?php
+session_start(); // Start the session
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start; /* Align items to the start */
+            box-sizing: border-box;
+            background-image: url("../images/cement-texture.jpg");
+        }
+        div.a {
+            width: 250px;
+            height: 80px;
+            background-color: black;
+            transform: rotate(20deg);
+        }
+        div.b {
+            width: 250px;
+            height: 80px;
+            background-color: gold;
+            transform: rotate(20deg);
+            top:100px;
+        }
+        div.bb {
+            width: 230px;
+            height: 30px;
+            background-color: coral;
+            top:100px;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #248f8f;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidenav a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #000;
+            display: block;
+            transition: 0.3s;
+            font-family: Andalus;
+        }
+
+        .sidenav a:hover {
+            color: #f1f1f1;
+            font-weight: bold;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        .menu-btn {
+            font-size: 30px;
+            cursor: pointer;
+            padding: 10px;
+            position: fixed;
+            top: 0; /* Move the menu button to the top */
+            left: 20px; /* Move the menu button to the left */
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+        }
+
+        @media screen and (max-width: 600px) {
+            .sidenav a {
+                font-size: 20px;
+                padding: 8px 8px 8px 20px;
+            }
+            .sidenav .closebtn {
+                font-size: 24px;
+                right: 15px;
+            }
+            .menu-btn {
+                font-size: 24px;
+            }
+        }
+        .main-container {
+            display: flex;
+            width: 50%;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            height: 100%;
+            margin-right: 80px; /* مسافة عرضية بين العمودين */
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 100%;
+            height: calc(50% - 10px); /* نصف ارتفاع الصفحة مع المسافة بين الـ divs */
+            border: 4px double #248f8f;
+            padding: 20px;
+            margin-bottom: 10px; /* مسافة صغيرة بين الـ divs */
+            box-sizing: border-box;
+        }
+
+        .column:nth-child(odd) .box:last-child {
+            margin-bottom: 20px; /* مسافة إضافية بين العناصر الأول والثالث */
+        }
+
+        .column:nth-child(even) .box:last-child {
+            margin-bottom: 20px; /* مسافة إضافية بين العناصر الثاني والرابع */
+        }
+
+        .box:last-child {
+            margin-bottom: 0; /* إزالة المسافة بين الـ divs في الأسفل */
+        }
+
+        @media screen and (max-width: 600px) {
+            .main-container {
+                width: 100%;
+                padding: 5px;
+            }
+            .box {
+                height: calc(50% - 5px); /* حساب نصف ارتفاع الصفحة مع المسافة بين الـ divs */
+                padding: 10px;
+                margin-bottom: 5px; /* مسافة صغيرة بين الـ divs */
+            }
+            .box:last-child {
+                margin-bottom: 0; /* إزالة المسافة بين الـ divs في الأسفل */
+            }
+        }
+        .container2 {
+            position: relative;
+            width: 50%;
+            top:20px;
+            left:33px;
+        }
+
+        .image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .5s ease;
+            background-color: #248f8f;
+        }
+
+        .container2:hover .overlay {
+            opacity: 1;
+        }
+
+        .text {
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="display2.php"><pre>Show-Admin
+Information</pre></a><br><br><br>
+    <a href="display.php"><pre>Show-User's
+Account</pre></a><br><br><br>
+    <a href="show_Req.php"><pre>View Requests
+</pre></a><br><br><br>
+</div>
+<span class="menu-btn" onclick="openNav()">&#9776; <span >Admin's-Ability... .</span></span>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+</script>
+<div class="main-container">
+    <div class="column">
+        <div class="box">
+            <br><br><br><br>
+            <div class="b">
+    <pre style="font-family: Andalus;font-weight: bold;font-size: 20px;">
+
+          The-Permissions...
+    </pre>
+            </div>
+
+        </div>
+        <div class="box">
+            <br>
+            <div class="bb" >
+    <pre style="font-family: Andalus;font-weight: bold">
+     <a href="display.php" style="text-decoration: none;color: black;font-family: Andalus;font-weight: bold">Show user's account... .</a>
+    </pre>
+            </div>
+            <br>  <div class="bb">
+                <pre style="font-family: Andalus;font-weight: bold">
+    <a href="display2.php" style="text-decoration: none;color: black;font-family: Andalus;font-weight: bold">    Show Admin-Info... .
+</a>
+
+    </pre>
+            </div>
+            <br> <div class="bb">
+                <pre style="font-family: Andalus;font-weight: bold">
+    <a href="show_Req.php" style="text-decoration: none;color: black;font-family: Andalus;font-weight: bold">  show Request... .
+            </div>
+
+        </div>
+    </div>
+    <div class="column">
+        <div class="box" >
+            <div class="container2" style="width: 75% ; " >
+                <img src="../HomePageImages/15708897.png" alt="Avatar" class="image " >
+                <div class="overlay">
+                    <div class="text"><pre style="font-weight: bold;font-family: Andalus;font-size: 30px">Admin</pre></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+
+<span style="font-weight: bold">
+What do we mean
+by admin??!
+</span><br><br><br><br><br>
+            <div class="a" style="font-size: 18px; font-family: Andalus ;color: #ffffff " >A person who had specific
+                permissions to execute it.</div>
+
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

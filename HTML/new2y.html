@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recipe Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+        form {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        form label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        form input {
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        form button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #248f8f;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        form button:hover {
+            background-color: #1a7a7a;
+        }
+        .image-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Five columns */
+            gap: 20px;
+            justify-items: center;
+            margin-top: 30px;
+            padding: 20px;
+        }
+        .recipe-item {
+            text-align: center;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            width: 200px;
+            height: 400px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .recipe-item:hover {
+            transform: scale(1.05);
+        }
+        .recipe-image {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+        .recipe-name {
+            font-size: 14px;
+            color: #333;
+            margin-top: 10px;
+        }
+        .recipe-description {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+        .recipe-item:hover .recipe-description {
+            display: block;
+            opacity: 1;
+        }
+        .recipe-level, .recipe-time {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
+        .stars {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .stars span {
+            font-size: 20px;
+            color: #ccc;
+        }
+        .stars .filled {
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+<h1>Search By Name</h1>
+<form id="ingredientForm">
+    <input type="text" id="ingredient" name="ingredient" required placeholder="Enter ingredient name">
+    <button type="submit" style="color: white">Submit</button>
+</form>
+
+<div id="imageContainer" class="image-container"></div>
+
+<script>
+    document.getElementById('ingredientForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const ingredientName = document.getElementById('ingredient').value;
+        fetch(`process3.php?ingredient=${ingredientName}`)
+            .then(response => response.json())
+            .then(data => {
+                const imageContainer = document.getElementById('imageContainer');
+                imageContainer.innerHTML = ''; // Clear previous images
+
+                if (Array.isArray(data)) {
+                    data.forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'recipe-item';
+
+                        const img = document.createElement('img');
+                        img.className = 'recipe-image';
+                        img.src = item.Url;
+                        img.alt = item.name;
+
+                        const name = document.createElement('div');
+                        name.className = 'recipe-name';
+                        name.textContent = item.name;
+
+                        const description = document.createElement('div');
+                        description.className = 'recipe-description';
+                        description.textContent = item.description;
+
+                        const level = document.createElement('div');
+                        level.className = 'recipe-level';
+                        level.textContent = `Level: ${item.level}`;
+
+                        const time = document.createElement('div');
+                        time.className = 'recipe-time';
+                        time.textContent = `Time: ${item.time}`;
+
+                        const stars = document.createElement('div');
+                        stars.className = 'stars';
+                        for (let i = 0; i < 5; i++) {
+                            const star = document.createElement('span');
+                            star.textContent = '★';
+                            if (i < item.Rating) {
+                                star.classList.add('filled');
+                            }
+                            stars.appendChild(star);
+                        }
+
+                        div.appendChild(img);
+                        div.appendChild(name);
+                        div.appendChild(description);
+                        div.appendChild(level);
+                        div.appendChild(time);
+                        div.appendChild(stars);
+                        imageContainer.appendChild(div);
+                    });
+                } else if (data.error) {
+                    alert(data.error);
+                } else {
+                    alert("No recipes found.");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>

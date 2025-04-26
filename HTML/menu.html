@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontal Menu</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .horizontal-menu {
+            background-color: #248f8f;
+            overflow: hidden;
+        }
+
+        .horizontal-menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+        }
+
+        .horizontal-menu ul li {
+            display: flex;
+            align-items: center;
+        }
+
+        .horizontal-menu ul li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .horizontal-menu ul li a:hover {
+            background-color: #248f8f;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .menu {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .menu li {
+            flex: none;
+        }
+
+        .menu pre {
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chip {
+            padding: 0 25px;
+            height: 50px;
+            font-size: 16px;
+            line-height: 50px;
+            border-radius: 25px;
+            background-color: #f1f1f1;
+            color: #0c0c0c;
+            display: flex;
+            align-items:center;
+            margin-left: auto;
+        }
+
+        .chip img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .horizontal-menu ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .horizontal-menu ul li {
+                flex: 1 1 auto;
+            }
+
+            .chip {
+                order: 1;
+                width: 100%;
+                justify-content: center;
+                margin: 10px 0;
+            }
+
+            .chip img {
+                height: 40px;
+                width: 40px;
+            }
+
+            .menu pre {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .horizontal-menu ul li a {
+                padding: 20px;
+                font-size: 14px;
+            }
+
+            .menu pre {
+                font-size: 14px;
+            }
+
+            .chip {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav class="horizontal-menu">
+    <ul class="menu">
+        <li><a href="home.html"><img src="../MainMenuBarPhoto/home%20(2).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Home</pre></a></li>
+        <li><a href="User-P.html"><img src="../MainMenuBarPhoto/user.png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>User</pre></a></li>
+        <li><a href="ingredients.html"><img src="../MainMenuBarPhoto/recipe-book%20(2)%20(1).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Recipes</pre></a></li>
+        <li><a href="MyRecipe.html"><img src="../MainMenuBarPhoto/meal%20(3)%20(1).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>My Recipe</pre></a></li>
+        <li><a href="#Add_Recipe"><img src="../MainMenuBarPhoto/add%20(3).png" style="width: 30px; height: 30px;margin-left: 3px;"><pre>Add Recipe</pre></a></li>
+        <li><a href="#Favorite"><img src="../MainMenuBarPhoto/heart.png" style="width: 30px; height: 30px;"><pre>Favorite</pre></a></li>
+        <li class="chip">
+            <img src="../MainMenuBarPhoto/profile.png" alt="Person" class="chipImg">
+            Omar salhab
+        </li>
+    </ul>
+</nav>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var menuItems = document.querySelectorAll('.horizontal-menu ul li a');
+
+        menuItems.forEach(function(item) {
+            item.addEventListener('click', function() {
+                menuItems.forEach(function(menuItem) {
+                    menuItem.style.backgroundColor = ''; // Reset background color
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>
